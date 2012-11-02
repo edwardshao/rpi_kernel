@@ -6,7 +6,7 @@ The goal of this project is:
 	
 	*   understand linker script (sections)
 	*   interact between C and ARM assembly 
-	*   how to setup an enviroment for C program
+	*   how to setup an environment for C program
 	*   how to interact with hardware peripherals
 	*   use C if possible
 
