@@ -10,6 +10,7 @@ LDS   = kernel.lds
 O_MAP = kernel.map
 O_BIN = kernel.img
 O_ELF = kernel.elf
+O_DIS = kernel.dis
 
 OBJS = start.o main.o
 
@@ -30,8 +31,9 @@ $(O_BIN): $(O_ELF)
 
 $(O_ELF): $(OBJS)
 	$(LD) --no-undefined $(OBJS) -Map $(O_MAP) -o $(O_ELF) -T $(LDS)
+	$(OBJDUMP) -d $(O_ELF) > $(O_DIS)
 
 clean:
 	-rm -f $(OBJS)
-	-rm -f $(O_MAP) $(O_BIN) $(O_ELF)
+	-rm -f $(O_MAP) $(O_BIN) $(O_ELF) $(O_DIS)
 
