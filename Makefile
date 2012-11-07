@@ -12,7 +12,7 @@ O_BIN = kernel.img
 O_ELF = kernel.elf
 O_DIS = kernel.dis
 
-OBJS = start.o main.o
+OBJS = start.o main.o gpio.o
 
 %.o: %.S config.h hardware.h
 	$(CC) -O2 -D__ASSEMBLY__ -c -o $@ $<
