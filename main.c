@@ -1,4 +1,5 @@
 #include "hardware.h"
+#include "gpio.h"
 
 #if (0)
 static int static_num;
@@ -9,20 +10,18 @@ int global_num_has_value = 20;
 
 static void setup_gpio()
 {
-	volatile unsigned int *gpio_mmio = (unsigned int*)GPIO_FSEL_1;
-	(*gpio_mmio) = (0x1 << 18);
+	// pin 16 is led, set gpio to output
+	gpio_fsel(16, GPIO_FSEL_OUTPUT);
 }
 
 static void led_on()
 {
-	volatile unsigned int *gpio_mmio = (unsigned int*)GPIO_CLR_0;
-	(*gpio_mmio) = (0x1 << 16);
+	gpio_output_clr(16);
 }
 
 static void led_off()
 {
-	volatile unsigned int *gpio_mmio = (unsigned int*)GPIO_SET_0;
-	(*gpio_mmio) = (0x1 << 16);
+	gpio_output_set(16);
 }
 
 static void wait()
