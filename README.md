@@ -15,10 +15,11 @@ There are some useful information from Baking Pi Project.
 
 Status
 --------
+	*   2012/11/07: Add simple GPIO libaray.
 	*   2012/11/02: Initiation. LED blinking!
 
 Todo
 --------
-	*   GPIO library
+	*   play with interrupt
 	*   play with USB
 	*   play with graphic
