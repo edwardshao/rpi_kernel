@@ -1,4 +1,3 @@
-
 CROSS_COMPILE	= arm-none-eabi-
 CC		= $(CROSS_COMPILE)gcc
 LD		= $(CROSS_COMPILE)ld
@@ -11,18 +10,18 @@ O_MAP = kernel.map
 O_BIN = kernel.img
 O_ELF = kernel.elf
 O_DIS = kernel.dis
+O_DEP = make.dep
 
 OBJS = start.o main.o gpio.o
 
-%.o: %.S config.h hardware.h
-	$(CC) -O2 -D__ASSEMBLY__ -c -o $@ $<
+include rule.mk
 
-%.o: %.c config.h hardware.h
-	$(CC) -O2 -c -o $@ $<
+.PHONY: all gen_dep gen_all clean
 
-.PHONY: all clean
+all: gen_dep gen_all
 
-all: gen_all
+gen_dep: *.c *.S
+	$(CC) -M $? > $(O_DEP)
 
 gen_all: $(O_BIN)
 
@@ -35,5 +34,6 @@ $(O_ELF): $(OBJS)
 
 clean:
 	-rm -f $(OBJS)
-	-rm -f $(O_MAP) $(O_BIN) $(O_ELF) $(O_DIS)
+	-rm -f $(O_MAP) $(O_BIN) $(O_ELF) $(O_DIS) $(O_DEP)
 
+-include make.dep
