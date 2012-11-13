@@ -12,7 +12,9 @@ O_ELF = kernel.elf
 O_DIS = kernel.dis
 O_DEP = make.dep
 
-OBJS = start.o main.o gpio.o
+SOBJS = start.o
+COBJS = main.o gpio.o
+OBJS  = $(SOBJS) $(COBJS)
 
 include rule.mk
 
@@ -20,8 +22,8 @@ include rule.mk
 
 all: gen_dep gen_all
 
-gen_dep: *.c *.S
-	$(CC) -M $? > $(O_DEP)
+gen_dep: *.c *.h
+	$(CC) -M $(SOBJS:.o=.S) $(COBJS:.o=.c) > $(O_DEP)
 
 gen_all: $(O_BIN)
 
